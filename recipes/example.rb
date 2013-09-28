@@ -21,7 +21,7 @@ chef_gem "file-tail" do
 	action :install
 end
 
-log_tail "/var/log/apache2/error_log" do
-	line_count 10
+log_tail ["/var/log/apache2/error_log","/var/log/apache2/access_log"] do
+	line_count 5
 	action :enable
 end

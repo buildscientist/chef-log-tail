@@ -31,23 +31,36 @@ class Chef
 			end
 			
 			def action_enable
-				tail_log()
-
+				process_logs()
 			end	
 
-			def validate_path
-				Chef::Log::debug("Validating log path - #{new_resource.log_path}")
-				raise IOError, "#{new_resource.log_path} is not a valid file}" unless ::File.file?(@new_resource.log_path)
+			def validate_path(log_path)
+				Chef::Log::debug("Validating log path - #{log_path}")
+				raise IOError, "#{log_path} is not a valid file}" unless ::File.file?(log_path)
+			end
+				
+			def process_logs
+				if @new_resource.log_path.is_a?(Array) 
+					@new_resource.log_path.each do |log|
+						validate_path(log)
+					end
+					
+					@new_resource.log_path.each do |log|
+						tail_log(log)
+					end
+				else
+					validate_path(@new_resource.log_path)
+					tail_log(@new_resource.log_path)
+				end
+				
 			end
 
-			def tail_log
-				validate_path()
-				log_file = @new_resource.log_path
-				Chef::Log::info("[BEGIN =====> #{log_file} <===== BEGIN")
-				::File::Tail::Logfile.tail(log_file,:return_if_eof => true, :backward => @new_resource.line_count) do |line| 
+			def tail_log(log)
+				Chef::Log::info("[BEGIN =====> #{log} <===== BEGIN]")
+				::File::Tail::Logfile.tail(log,:return_if_eof => true, :backward => @new_resource.line_count) do |line| 
 					Chef::Log::info(line)
 				end
-				Chef::Log::info("END =====> #{log_file} <===== END")
+				Chef::Log::info("[END =====> #{log} <===== END]")
 			end
 		end
 	end
