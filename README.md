@@ -15,7 +15,7 @@ QuickStart
 Publish the chef-log-tail cookbook
 - If you use [Berkshelf](http://berkshelf.com/)
 ``` 
-cookbook 'chef-log-tail'
+berks cookbook 'chef-log-tail'
 ```
 - Or the knife command line tool 
 ```
@@ -42,6 +42,12 @@ Invoke chef-client on target node(s)
 knife ssh 'name:*' 'sudo chef-client'
 ```
 
+OR 
+
+Invoke chef-solo on your target node
+```
+sudo chef-solo -c solo.rb -j node.json
+```
 Disclaimer
 ----
 This resource provider is not meant as a replacement to better suited log streaming solutions such as Logstash or Splunk. The goal is to provide Chef's with a quick method of tailing logs without having to resort to making system calls to /usr/bin/tail.
