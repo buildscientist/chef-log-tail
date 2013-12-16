@@ -22,7 +22,7 @@ class Chef
 				super
 				@resource_name = :log_tail
 				@provider = Chef::Provider::LogTail
-				@action = :capture
+				@action = :enable
 				@allowed_actions = [:nothing, :enable]
 				
 				@log_path = name
