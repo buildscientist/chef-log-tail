@@ -1,13 +1,10 @@
-chef-log-tail CHANGELOG
-=======================
-
-This file is used to list changes made in each version of the chef-log-tail cookbook.
-
-0.1.0
+CHANGELOG
 -----
-- [your_name] - Initial release of chef-log-tail
+0.3.0
+-----
+- [YEK] - chef-log-tail can now tail multiple log files
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
-
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+0.2.0
+-----
+- [YEK] - Initial release of chef-log-tail
+- chef-log-tail is capable of tailing a single log

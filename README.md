@@ -4,6 +4,7 @@ Chef-Log-Tail is a Chef resource/provider that allows users to tail any log file
 
 Requirements
 -----
+- Linux or OS X
 - Ruby 1.9.x
 - Chef 11.x 
 - [file-tail gem](http://flori.github.io/file-tail/index.html)
@@ -48,17 +49,25 @@ Invoke chef-solo on your target node
 ```
 sudo chef-solo -c solo.rb -j node.json
 ```
+
+Examples
+----
+Tail an individual log file
+```
+log_tail "/var/log/httpd/access_log" do 
+	line_count 3000
+	action :enable
+end
+```
+
+Tail multiple log files
+```
+log_tail ["/var/log/httpd/error_log","/var/log/httpd/access_log"] do
+	line_count 5
+	action :enable
+end
+```
+
 Disclaimer
 ----
 This resource provider is not meant as a replacement to better suited log streaming solutions such as Logstash or Splunk. The goal is to provide Chef's with a quick method of tailing logs without having to resort to making system calls to /usr/bin/tail.
-
-CHANGELOG
------
-0.3.0
------
-- [YEK] - chef-log-tail can now tail multiple log files
-
-0.2.0
------
-- [YEK] - Initial release of chef-log-tail
-- chef-log-tail is capable of tailing a single log
